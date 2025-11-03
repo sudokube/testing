@@ -12,7 +12,7 @@ variable "region" {
 variable "repository" {
   description = "Artifact Registry repository ID"
   type        = string
-  default     = "app-repo"
+  default     = "project-repository"
 }
 
 variable "service_name" {

@@ -7,7 +7,7 @@ resource "google_cloud_run_v2_service" "production" {
   location            = var.region
   description         = "Production Environment"
   ingress             = "INGRESS_TRAFFIC_ALL"
-  deletion_protection = true
+  deletion_protection = false
 
   template {
     service_account = google_service_account.run_service_account.email
