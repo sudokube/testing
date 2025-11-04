@@ -10,7 +10,7 @@ resource "google_cloud_run_v2_service" "production" {
   deletion_protection = false
 
   template {
-    service_account = google_service_account.run_service_account.email
+    service_account = google_service_account.run_sa.email
     containers {
       image = local.image_reference
     }
@@ -20,8 +20,6 @@ resource "google_cloud_run_v2_service" "production" {
     min_instance_count = 0
     max_instance_count = 100
   }
-
-  depends_on = [ google_project_service.apis ]
 }
 
 resource "google_cloud_run_v2_service" "staging" {
@@ -32,7 +30,7 @@ resource "google_cloud_run_v2_service" "staging" {
   deletion_protection = false
 
   template {
-    service_account = google_service_account.run_service_account.email
+    service_account = google_service_account.run_sa.email
     containers {
       image = local.image_reference
     }
@@ -42,8 +40,6 @@ resource "google_cloud_run_v2_service" "staging" {
     min_instance_count = 0
     max_instance_count = 10
   }
-
-  depends_on = [ google_project_service.apis ]
 }
 
 resource "google_cloud_run_v2_service_iam_member" "public" {
@@ -53,6 +49,4 @@ resource "google_cloud_run_v2_service_iam_member" "public" {
 
   member = "allUsers"
   role   = "roles/run.invoker"
-
-  depends_on = [ google_cloud_run_v2_service.production ]
 }

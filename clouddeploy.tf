@@ -10,8 +10,6 @@ resource "google_clouddeploy_delivery_pipeline" "pipeline" {
       target_id = "production"
     }
   }
-
-  depends_on = [google_project_service.apis]
 }
 
 resource "google_clouddeploy_target" "staging" {
@@ -19,17 +17,13 @@ resource "google_clouddeploy_target" "staging" {
   name     = "staging"
 
   execution_configs {
-    service_account = google_service_account.deploy_service_account.email
+    service_account = google_service_account.deploy_sa.email
     usages          = ["RENDER", "DEPLOY"]
   }
 
   run {
-    location = "projects/${var.project}/locations/${var.region}"
+    location = "projects/${var.project_id}/locations/${var.region}"
   }
-
-  depends_on = [
-    google_clouddeploy_delivery_pipeline.pipeline,
-  ]
 }
 
 resource "google_clouddeploy_target" "production" {
@@ -37,15 +31,11 @@ resource "google_clouddeploy_target" "production" {
   name     = "production"
 
   execution_configs {
-    service_account = google_service_account.deploy_service_account.email
+    service_account = google_service_account.deploy_sa.email
     usages          = ["RENDER", "DEPLOY"]
   }
 
   run {
-    location = "projects/${var.project}/locations/${var.region}"
+    location = "projects/${var.project_id}/locations/${var.region}"
   }
-
-  depends_on = [
-    google_clouddeploy_target.staging,
-  ]
 }

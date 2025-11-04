@@ -1,1 +1,8 @@
-
+project_id    = "YOUR_GCP_PROJECT_ID"
+region        = "YOUR_PROJECT_REGION"
+repository_id = "YOUR_ARTIFACT_REGISTRY_REPOSITORY_ID"
+service_name  = "YOUR_SERVICE_NAME"
+image_name    = "YOUR_CONTAINER_IMAGE_NAME"
+github_org    = "YOUR_GITHUB_ORGANIAZATION_NAME"
+github_repo   = "YOUR_GITHUB_REPOSITORY_NAME"
+github_branch = "YOUR_GITHUB_MAIN_BRANCH"
